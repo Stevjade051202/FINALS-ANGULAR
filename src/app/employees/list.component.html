@@ -1,0 +1,85 @@
+<div class="card">
+  <div class="card-header">
+    <h4>EMPLOYEES</h4>
+  </div>
+  <div class="card-body">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Employee ID</th>
+          <th>Account</th>
+          <th>Position</th>
+          <th>Department</th>
+          <th>Hire Date</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let employee of employees">
+          <td>{{employee.employeeId}}</td>
+          <td>{{employee.user?.email}}</td>
+          <td>{{employee.position}}</td>
+          <td>{{employee.department?.name}}</td>
+          <td>{{employee.hireDate | date:'M/d/yyyy'}}</td>
+          <td>
+            <span [ngClass]="{'badge bg-success': employee.status === 'Active', 'badge bg-secondary': employee.status !== 'Active'}">
+              {{employee.status}}
+            </span>
+          </td>
+          <td>
+            <button class="btn btn-info btn-sm me-1" [routerLink]="['/requests']" [queryParams]="{employeeId: employee.id}">Requests</button>
+            <button class="btn btn-primary btn-sm me-1" [routerLink]="['/workflows', employee.id]">Workflows</button>
+            <button class="btn btn-warning btn-sm me-1">Transfer</button>
+            <button class="btn btn-secondary btn-sm" [routerLink]="[employee.id, 'edit']">Edit</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <button class="btn btn-primary mt-2" [routerLink]="['add']">Add Employee</button>
+  </div>
+</div>
+
+<!-- <div class="card">
+    <h3 class="card-header">Employees</h3>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Employee ID</th>
+              <th>User</th>
+              <th>Position</th>
+              <th>Department</th>
+              <th>Hire Date</th>
+              <th>Status</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let employee of employees">
+              <td>{{ employee.employeeId }}</td>
+              <td>{{ employee.user?.email }}</td>
+              <td>{{ employee.position }}</td>
+              <td>{{ employee.department?.name }}</td>
+              <td>{{ employee.hireDate | date:'mediumDate' }}</td>
+              <td>{{ employee.status }}</td>
+              <td class="text-right">
+                <a [routerLink]="['/employees/edit', employee.id]" class="btn btn-sm btn-primary mr-1">Edit</a>
+                <button (click)="deleteEmployee(employee.id)" class="btn btn-sm btn-danger" [disabled]="employee.isDeleting">
+                  <span *ngIf="employee.isDeleting" class="spinner-border spinner-border-sm"></span>
+                  <span *ngIf="!employee.isDeleting">Delete</span>
+                </button>
+              </td>
+            </tr>
+            <tr *ngIf="!employees?.length">
+              <td colspan="7" class="text-center">No employees found</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="text-right">
+        <a routerLink="/employees/add" class="btn btn-primary">Add Employee</a>
+      </div>
+    </div>
+</div> -->

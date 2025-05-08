@@ -1,0 +1,11 @@
+04/10/2025
+
+How to clear the accounts stored in local storage?
+
+1. Manually via Browser Developer Console (Simplest for Debugging)
+    - Open your browser's developer tools (usually by pressing F12).
+    - Go to the "Console" tab.
+    - Type the following command and press Enter:
+        localStorage.removeItem('angular-19-boilerplate-accounts');
+    - To confirm, you can type:
+        localStorage.getItem('angular-19-boilerplate-accounts');

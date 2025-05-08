@@ -1,0 +1,67 @@
+<div class="card">
+    <h4 class="card-header">{{title}}</h4>
+    <div class="card-body">
+        <form *ngIf="!loading" [formGroup]="form" (ngSubmit)="onSubmit()">
+            <!-- Employee Dropdown -->
+            <div class="mb-3">
+                <label class="form-label">Employee</label>
+                <select formControlName="employeeId" class="form-select" 
+                    [ngClass]="{ 'is-invalid': submitted && form.get('employeeId')?.errors }">
+                    <option value="">Select Employee</option>
+                    <option *ngFor="let employee of employees" [value]="employee.id">
+                        {{employee.user}} ({{employee.employeeId}})
+                    </option>
+                </select>
+                <div *ngIf="submitted && form.get('employeeId')?.errors" class="invalid-feedback">
+                    <div *ngIf="form.get('employeeId')?.errors?.['required']">Employee is required</div>
+                </div>
+            </div>
+
+            <!-- Type Dropdown -->
+            <div class="mb-3">
+                <label class="form-label">Request Type</label>
+                <select formControlName="type" class="form-select"
+                    [ngClass]="{ 'is-invalid': submitted && form.get('type')?.errors }">
+                    <option value="">Select Type</option>
+                    <option value="Equipment">Equipment</option>
+                    <option value="Leave">Leave</option>
+                    <option value="Resources">Resources</option>
+                </select>
+                <div *ngIf="submitted && form.get('type')?.errors" class="invalid-feedback">
+                    <div *ngIf="form.get('type')?.errors?.['required']">Type is required</div>
+                </div>
+            </div>
+
+            <!-- Items -->
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h5 class="mb-0">Items</h5>
+                </div>
+                <div class="card-body">
+                    <div formArrayName="items">
+                        <div *ngFor="let item of items.controls; let i=index" [formGroupName]="i" class="row mb-3">
+                            <div class="col-5">
+                                <label class="form-label">Name</label>
+                                <input type="text" formControlName="name" class="form-control">
+                            </div>
+                            <div class="col-5">
+                                <label class="form-label">Quantity</label>
+                                <input type="number" formControlName="quantity" class="form-control">
+                            </div>
+                            <div class="col-2 d-flex align-items-end">
+                                <button type="button" class="btn btn-danger" (click)="removeItem(i)">Remove</button>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-secondary" (click)="addItem()">Add Item</button>
+                </div>
+            </div>
+
+            <!-- Buttons -->
+            <div class="text-end">
+                <button type="submit" class="btn btn-primary me-2">Save</button>
+                <button type="button" class="btn btn-secondary" routerLink="/requests">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>

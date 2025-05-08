@@ -1,0 +1,59 @@
+<div class="card">
+    <h3 class="card-header">{{ isAddMode ? 'Add Employee' : 'Edit Employee' }}</h3>
+    <div class="card-body">
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label>Employee ID</label>
+          <input type="text" formControlName="employeeId" class="form-control" [ngClass]="{ 'is-invalid': f.employeeId.touched && f.employeeId.errors }">
+          <div *ngIf="f.employeeId.touched && f.employeeId.errors" class="invalid-feedback">
+            <div *ngIf="f.employeeId.errors.required">Employee ID is required</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>User</label>
+          <select formControlName="userId" class="form-control" [ngClass]="{ 'is-invalid': f.userId.touched && f.userId.errors }">
+            <option value="">Select User</option>
+            <option *ngFor="let user of users" [value]="user.id">{{ user.email }}</option>
+          </select>
+          <div *ngIf="f.userId.touched && f.userId.errors" class="invalid-feedback">
+            <div *ngIf="f.userId.errors.required">User is required</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Position</label>
+          <input type="text" formControlName="position" class="form-control" [ngClass]="{ 'is-invalid': f.position.touched && f.position.errors }">
+          <div *ngIf="f.position.touched && f.position.errors" class="invalid-feedback">
+            <div *ngIf="f.position.errors.required">Position is required</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Department</label>
+          <select formControlName="departmentId" class="form-control" [ngClass]="{ 'is-invalid': f.departmentId.touched && f.departmentId.errors }">
+            <option value="">Select Department</option>
+            <option *ngFor="let dept of departments" [value]="dept.id">{{ dept.name }}</option>
+          </select>
+          <div *ngIf="f.departmentId.touched && f.departmentId.errors" class="invalid-feedback">
+            <div *ngIf="f.departmentId.errors.required">Department is required</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Hire Date</label>
+          <input type="date" formControlName="hireDate" class="form-control" [ngClass]="{ 'is-invalid': f.hireDate.touched && f.hireDate.errors }">
+          <div *ngIf="f.hireDate.touched && f.hireDate.errors" class="invalid-feedback">
+            <div *ngIf="f.hireDate.errors.required">Hire Date is required</div>
+          </div>
+        </div>
+        <div class="form-group" *ngIf="!isAddMode">
+          <label>Status</label>
+          <select formControlName="status" class="form-control">
+            <option value="Active">Active</option>
+            <option value="Inactive">Inactive</option>
+          </select>
+        </div>
+        <div class="text-center">
+          <button type="submit" class="btn btn-primary mr-1" [disabled]="form.invalid">Save</button>
+          <a routerLink="/employees" class="btn btn-secondary">Cancel</a>
+        </div>
+      </form>
+    </div>
+  </div>

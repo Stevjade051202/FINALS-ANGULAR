@@ -1,0 +1,45 @@
+<div class="card">
+  <div class="card-header">
+    <h4>WORKFLOWS FOR EMPLOYEE {{employeeId}}</h4>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Type</th>
+            <th>Status</th>
+            <th>Details</th>
+            <th>Created</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let workflow of workflows">
+            <td>{{ workflow.type }}</td>
+            <td>
+              <span [ngClass]="{
+                'badge badge-warning': workflow.status === 'Pending',
+                'badge badge-success': workflow.status === 'Approved',
+                'badge badge-danger': workflow.status === 'Rejected'
+              }">{{ workflow.status }}</span>
+            </td>
+            <td>{{ workflow.details | json }}</td>
+            <td>{{ workflow.createdAt | date:'medium' }}</td>
+            <td class="text-right">
+              <button *ngIf="workflow.status === 'Pending'" (click)="updateStatus(workflow.id, 'Approved')" class="btn btn-sm btn-success mr-1">Approve</button>
+              <button *ngIf="workflow.status === 'Pending'" (click)="updateStatus(workflow.id, 'Rejected')" class="btn btn-sm btn-danger">Reject</button>
+            </td>
+          </tr>
+          <tr *ngIf="!workflows?.length">
+            <td colspan="5" class="text-center">No workflows found</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="text-right">
+      <a [routerLink]="['/workflows', employeeId, 'create']" class="btn btn-primary">Create Workflow</a>
+    </div>
+    <button class="btn btn-secondary mt-2" (click)="backToEmployees()">Back to Employees</button>
+  </div>
+</div>

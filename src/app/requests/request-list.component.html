@@ -1,0 +1,59 @@
+<div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h4>REQUESTS</h4>
+        <button class="btn btn-primary" routerLink="add">Add Request</button>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Type</th>
+                        <th>Employee</th>
+                        <th>Items</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let request of requests">
+                        <td>{{request.type}}</td>
+                        <td>
+                            <div>{{request.employeeName}}</div>
+                            <small class="text-muted">ID: {{request.employeeId}}</small>
+                        </td>
+                        <td>
+                            <span *ngFor="let item of request.items">
+                                {{item.name}} (×{{item.quantity}})<br>
+                            </span>
+                        </td>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <span [class]="'badge ' + getStatusBadgeClass(request.status)">
+                                    {{request.status}}
+                                </span>
+                                <div *ngIf="isAdmin" class="dropdown ms-2">
+                                    <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                                        Update
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" (click)="updateStatus(request.id, 'Approved')">Approve</a></li>
+                                        <li><a class="dropdown-item" (click)="updateStatus(request.id, 'Rejected')">Reject</a></li>
+                                        <li><a class="dropdown-item" (click)="updateStatus(request.id, 'Pending')">Reset to Pending</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <button class="btn btn-sm btn-primary me-1" [routerLink]="[request.id, 'edit']">Edit</button>
+                            <button *ngIf="isAdmin" class="btn btn-sm btn-danger" (click)="deleteRequest(request.id)">Delete</button>
+                        </td>
+                    </tr>
+                    <tr *ngIf="!requests?.length">
+                        <td colspan="5" class="text-center">No requests found</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

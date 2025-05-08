@@ -1,0 +1,14 @@
+.badge {
+    padding: 0.5em 1em;
+    font-size: 0.875em;
+    font-weight: 500;
+    border-radius: 0.25rem;
+}
+
+.dropdown-item {
+    cursor: pointer;
+}
+
+.dropdown-item:hover {
+    background-color: #f8f9fa;
+}

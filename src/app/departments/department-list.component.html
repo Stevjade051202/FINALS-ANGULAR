@@ -1,0 +1,39 @@
+<div class="p-4">
+  <div class="container">
+    <div class="card">
+      <h3 class="card-header">Departments</h3>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let dept of departments">
+                <td>{{ dept.name }}</td>
+                <td>{{ dept.description }}</td>
+                <td class="text-right">
+                  <a [routerLink]="['/departments/edit', dept.id]" class="btn btn-sm btn-primary mr-1">Edit</a>
+                  <button (click)="deleteDepartment(dept.id)" class="btn btn-sm btn-danger" [disabled]="dept.isDeleting">
+                    <span *ngIf="dept.isDeleting" class="spinner-border spinner-border-sm"></span>
+                    <span *ngIf="!dept.isDeleting">Delete</span>
+                  </button>
+                </td>
+              </tr>
+              <tr *ngIf="!departments?.length">
+                <td colspan="3" class="text-center">No departments found</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="text-right">
+          <a routerLink="/departments/add" class="btn btn-primary">Add Department</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
