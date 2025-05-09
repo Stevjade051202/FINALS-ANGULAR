@@ -33,7 +33,7 @@ import { HttpHeadersInterceptor } from './_helpers/http.interceptor';
         { provide: HTTP_INTERCEPTORS, useClass: HttpHeadersInterceptor, multi: true },
 
         // provider used to create fake backend
-        // fakeBackendProvider
+        fakeBackendProvider
     ],
     bootstrap: [AppComponent]
 })
